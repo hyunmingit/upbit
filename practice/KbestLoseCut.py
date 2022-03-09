@@ -1,11 +1,9 @@
-import time
-
 import pyupbit
 import numpy as np
 
 
 def get_ror(k=0.5):
-    df = pyupbit.get_ohlcv("KRW-ETH",interval=min ,count=1440)
+    df = pyupbit.get_ohlcv("KRW-ETH", count=200)
     df['range'] = (df['high'] - df['low']) * k
     df['target'] = df['open'] + df['range'].shift(1)
 
@@ -21,4 +19,3 @@ def get_ror(k=0.5):
 for k in np.arange(0.1, 1.0, 0.05):
     ror = get_ror(k)
     print("%.2f %f" % (k, ror))
-    #time.sleep(0.2)

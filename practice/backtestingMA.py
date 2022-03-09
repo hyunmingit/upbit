@@ -1,6 +1,10 @@
 import pyupbit
 import numpy as np
 
+"""
+하락장 일때 13이평선 정도는 유리할수 있으나 유의미한 차이는 없고,
+대부분의 경우에는 MA조건 없이 실행하는것이 좋다.
+"""
 
 df = pyupbit.get_ohlcv("KRW-ETH", count=100) #count 만큼 당일 시가 고가 저가 종가 거래량 조회
 
