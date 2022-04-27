@@ -5,10 +5,10 @@ import numpy as np
 
 
 def get_ror(k=0.5):
-    df = pyupbit.get_ohlcv("KRW-ETH",interval=min ,count=1440)
+    df = pyupbit.get_ohlcv("KRW-KNC",interval="day" ,count=120)
     df['range'] = (df['high'] - df['low']) * k
     df['target'] = df['open'] + df['range'].shift(1)
-
+    time.sleep(0.1)
     fee = 0.001
     df['ror'] = np.where(df['high'] > df['target'],
                          df['close'] / df['target'] - fee,
