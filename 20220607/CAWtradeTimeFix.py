@@ -2,9 +2,12 @@ import time
 import pyupbit
 
 from pytz import timezone
-from datetime import datetime
-today = datetime.now(timezone('Asia/Seoul'))
+
 import datetime
+
+from datetime import datetime as dt  #rename
+
+today = dt.now(timezone('Asia/Seoul'))
 
 import ipaddress
 import socket
@@ -14,14 +17,9 @@ import requests
 
 print(requests.get("http://ip.jsontest.com").json()['ip'])
 
-
-
-
-
-
-
 access = "qzgW0puZ6zHBeixr52BWRKOKWkEGNZvC1qeMz7Ez"
 secret = "ZepLSuiKR3u40xcILRFQozGl22xIMTpS5vYurax3"
+
 
 def get_target_price(ticker, k):
     """변동성 돌파 전략으로 매수 목표가 조회"""
@@ -29,11 +27,13 @@ def get_target_price(ticker, k):
     target_price = df.iloc[0]['close'] + (df.iloc[0]['high'] - df.iloc[0]['low']) * k
     return target_price
 
+
 def get_start_time(ticker):
     """시작 시간 조회"""
     df = pyupbit.get_ohlcv(ticker, interval="day", count=1)
     start_time = df.index[0]
     return start_time
+
 
 def get_balance(ticker):
     """잔고 조회"""
@@ -46,9 +46,11 @@ def get_balance(ticker):
                 return 0
     return 0
 
+
 def get_current_price(ticker):
     """현재가 조회"""
     return pyupbit.get_orderbook(ticker=ticker)["orderbook_units"][0]["ask_price"]
+
 
 # 로그인
 upbit = pyupbit.Upbit(access, secret)
@@ -56,10 +58,12 @@ print("autotrade start")
 
 # 자동매매 시작
 while True:
+    today = dt.now(timezone('Asia/Seoul'))
     print("good")
     print(today)
     try:
-        now = today
+
+        now = today  # datetime.datetime.now()"""
         start_time = get_start_time("KRW-ETH")
         end_time = start_time + datetime.timedelta(days=1)
 
@@ -69,11 +73,11 @@ while True:
             if target_price < current_price:
                 krw = get_balance("KRW")
                 if krw > 5000:
-                    upbit.buy_market_order("KRW-ETH", krw*0.9995)
+                    upbit.buy_market_order("KRW-ETH", krw * 0.9995)
         else:
             btc = get_balance("ETH")
             if btc > 0.00008:
-                upbit.sell_market_order("KRW-ETH", btc*0.9995)
+                upbit.sell_market_order("KRW-ETH", btc * 0.9995)
         time.sleep(1)
     except Exception as e:
         print(e)
