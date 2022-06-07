@@ -1,18 +1,10 @@
+import time
 import pyupbit
 import datetime
-import time
 
-access = "vPTsY97GkPAhQcbvfx3OXeyHQgEQVfmiTYdHQ8gQ"
-secret = "Rua7oyeKTenNW2JCHMJNVSEdvdjzWgqDJcQnjB1p"
+access = "qzgW0puZ6zHBeixr52BWRKOKWkEGNZvC1qeMz7Ez"
+secret = "ZepLSuiKR3u40xcILRFQozGl22xIMTpS5vYurax3"
 
-
-"""
-k = 0.3 or 0.35 일때 가장 유리한데
-하락장에는 비교적 0.35가 안전하다
-상승장이라고 판단되면 0.3으로 바꿀것 유의미한 차이가 있다.
-ETH가 아닌 다른종목은 다른  k값을 찾아야함
-하지만 메이저 종목중 ETH만이 같은 K값에 대한 일관적인 결과를 보여줌
-"""
 
 def get_target_price(ticker, k):
     """변동성 돌파 전략으로 매수 목표가 조회"""
@@ -50,7 +42,7 @@ while True:
     try:
         now = datetime.datetime.now()
         start_time = get_start_time("KRW-ETH")
-        end_time = start_time + datetime.timedelta(days=1)
+        end_time = start_time + datetime.timedelta(hours=12)
 
         if start_time < now < end_time - datetime.timedelta(seconds=10):
             target_price = get_target_price("KRW-ETH", 0.35)
