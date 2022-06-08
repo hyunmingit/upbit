@@ -1,10 +1,7 @@
 import time
 import pyupbit
-
 from pytz import timezone
-
 import datetime
-
 from datetime import datetime as dt  #rename
 
 today = dt.now(timezone('Asia/Seoul'))

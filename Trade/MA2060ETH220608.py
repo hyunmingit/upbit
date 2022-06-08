@@ -1,6 +1,7 @@
 import time
 import pyupbit
 import datetime
+from datetime import datetime as dt
 
 access = "qzgW0puZ6zHBeixr52BWRKOKWkEGNZvC1qeMz7Ez"
 secret = "ZepLSuiKR3u40xcILRFQozGl22xIMTpS5vYurax3"
@@ -51,11 +52,11 @@ print("autotrade start")
 # 자동매매 시작
 while True:
     try:
-        now = datetime.datetime.now()
+        now = dt.now()
         start_time = get_start_time("KRW-ETH")
         end_time = start_time + datetime.timedelta(hours=12)
 
-        if start_time < now < end_time - datetime.timedelta(seconds=10):
+        if start_time < now < end_time - dt.timedelta(seconds=10):
             #ma20, ma60 비교로 상승장,하락장 판별
             ma20 = get_ma20("KRW-ETH")
             ma60 = get_ma60("KRW-ETH")
