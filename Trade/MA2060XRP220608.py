@@ -65,21 +65,21 @@ while True:
 
         if start_time < now < end_time - datetime.timedelta(seconds=10):
             #ma20, ma60 비교로 상승장,하락장 판별
-            ma20 = get_ma20("KRW-ETH")
-            ma60 = get_ma60("KRW-ETH")
+            ma20 = get_ma20("KRW-XRP")
+            ma60 = get_ma60("KRW-XRP")
             if ma20 > ma60:
-                target_price = get_target_price("KRW-ETH", 0.3)
+                target_price = get_target_price("KRW-XRP", 0.5)
             else:
-                target_price = get_target_price("KRW-ETH", 0.35)
-            current_price = get_current_price("KRW-ETH")
+                target_price = get_target_price("KRW-XRP", 0.9)
+            current_price = get_current_price("KRW-XRP")
             if target_price < current_price:
                 krw = get_balance("KRW")
                 if krw > 5000:
-                    upbit.buy_market_order("KRW-ETH", krw*0.9995)
+                    upbit.buy_market_order("KRW-XRP", krw*0.9995)
         else:
-            btc = get_balance("ETH")
-            if btc > 0.00008:
-                upbit.sell_market_order("KRW-ETH", btc*0.9995)
+            btc = get_balance("XRP")
+            if btc > 15:
+                upbit.sell_market_order("KRW-XRP", btc*0.9995)
         time.sleep(1)
     except Exception as e:
         print(e)

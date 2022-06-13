@@ -5,7 +5,8 @@ import numpy as np
 
 
 def get_ror(k=0.5):
-    df = pyupbit.get_ohlcv("KRW-KNC",interval="day" ,count=120)
+    #df = pyupbit.get_ohlcv("KRW-XRP",interval="minute720" ,count=200)
+    df = pyupbit.get_ohlcv("KRW-XRP", interval="day", count=100)
     df['range'] = (df['high'] - df['low']) * k
     df['target'] = df['open'] + df['range'].shift(1)
     time.sleep(0.1)
@@ -19,6 +20,7 @@ def get_ror(k=0.5):
 
 
 for k in np.arange(0.1, 1.0, 0.05):
+
     ror = get_ror(k)
     print("%.2f %f" % (k, ror))
     #time.sleep(0.2)
